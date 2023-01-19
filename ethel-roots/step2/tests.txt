@@ -1,0 +1,132 @@
+#	Ethel Leung
+#  	ethelleung@gmail.com
+#
+1. 	Decided what do you want to test and what type of test it will be.
+		- It is an API load test on an isolated component.
+			Component to test:	
+			https://ninja-weather.com/v1/weather
+			
+			Target API endpoint examples:
+				lat=<lat_value>&lon=<lon_value>
+				zip=<zip_code>
+				city=<city_name>
+				city=<city_name>&country=<country_name>
+				city=<city_name>&state=<state_name>
+		- Test type:  Load
+		  (Other test type are: Stress, Spike, Soak, Volume)
+		
+2.	Identify the testing environments
+	- Set the targeted server
+		Cloud based
+			- www.ninja-weather.com/
+			- for cloud based test, open your firewall for cloud test traffic
+			- run cloud test from your private AWS EC2 instances.
+		private network (an isolated network environment)
+			- <localhost | ip address>/
+
+		- Is the targeted server have other application or database running on.
+	
+	- Set the your client machine that hosting your load test application
+		- Make sure the client server has enough resources.  Say if you want 
+		  to view the statistic gathered during the execution of the test, you 
+		  may need to set the memory size bigger as it will take up resources 
+		  to show the graphs/reports.
+		- Set memory size for test tool
+
+3.	Script the test
+	Write user flows, parameterize test data, group URLs.
+		- Test tool: JMeter or Loadrunner, etc.
+		- Set target domain
+			- "ninja-weather.com"
+		- Add dynamic parameters to the request from a data file
+		- The value of parameters will be stored in a data file (csv file).
+		  (if there is more than one parameter, then need to specify the delimiter 
+		  in the configuration of input file of the load test application)
+			- The content of data file should be something like:
+				  /v1/weather?lat="-23.533773"&lon="-46.625290"
+				  /v1/weather?zip="04829"
+				  /v1/weather?city="Sao Paulo"
+				  /v1/weather?city="Sao Paulo"&country="Brazil"
+			- if we need to group requests by parameters, we can have 
+			  different files for each type of parameters. i.e lat and lon on one file,
+			  zip on another and city, state, country also on another one.
+		- Configure if the data can be looped again when the end of file reached
+		- Configure if the user will use unique test data value / all threads can share the data
+		- Configure if the data being used is randomized or not (i.e not in sequential order 
+		  from the data file)
+
+3.	Model and generate load
+	Base on what criteria determine acceptable performance:
+		- Set the number of virtual users
+		- Set test running period
+			- Duration base or iteration base
+				- Set duration in Day:Hours:Minutes:Second or
+				- Set how many iteration a user will make the requests
+		- Set the ramp up time (the time the virtual user initialized)
+			- Set simultaneously or ramp up.
+				- Simultaneously is to have all virtual users initialize at the same time or 
+				- Ramp up is to have certain number of virtual users initialize at particular time 
+				  interval.  (e.g for total of 10 users, having them start up 2 every 10 seconds)
+		- Set how the users start after virtual users finished initialization
+			- Set simultaneously or interval
+				- Set simultaneously start with all virtual users start requests at the same time or 
+				- Set the interval start with certain number of virtual users start request together at particular interval							
+		- Set think time (the request rate)
+			- Set what is the think time for a user to pause between a request 
+			- Set if the think time is a constant value or a random value within a 
+			  particular range of time.		  		  
+		- Set how to stop the test
+			- Simultaneously or ramp down
+				- Simultaneously stop, user which finished the requests, they can 
+					pause and do nothing and wait for all other user finish.  Then 
+					stop all together or 
+				- Ramp down, certain number of users will stop together in a particular 
+				  time interval.
+			
+3.1	Add assert performance and correctness
+	(this step is optional base on your Service Level Requirements if any.)
+		- Add threshold settings 
+
+4.	Decided what to measure
+	This means what kind of reports you want to see by the end of the test.		
+	Identify what you need to be measured and configure them in you performance test.	
+		- Transaction Response Time
+		- Error Statistics	
+		- Hits per Second
+		- Throughput
+		- HTTP Responses per Sceond
+		- Elapse time
+		- WebSocket Statistics
+		- Pages Downloaded per Second
+		- Retries per Second 
+		- Connections
+		- Connection per Second
+		- SSL per Record
+		- CPU usage
+		- Memory usage
+		- I/O rate
+		etc.
+
+5.	Schedule the test
+		- Set the time at which the test should begin running
+			- For loadrunner, use Scheduler
+				- Set 'Start with delay', 'Start when group'
+			- For JMeter, checked the 'Specify Thread lifetime' option
+				- Set 'Duration', 'Startup delay'
+		
+6.	Decide the matrix of tests
+	- Before apply load to the test, run it with single or few virtual users
+	  and make sure your testplan/script is working
+	- Then apply load gradually
+	- We want to find out the max capacity of load that the application can handle
+	- We also want to find out at which load and number of requests that we 
+	  can start to see degrade of the application
+	- We continue to add load in the test until we see errors comes up.
+	  See how well it handle errors.  In many of the cases, a few errors should 
+	  not crash the application.
+	- We need to continue add the load until we see the application crash totally.
+	- Further consideration that if the test move onto a different protocols
+	  (Beyond HTTP REST API)
+	- Test your API with more requests, longer durations, and on a wider test 
+	  scope—from isolated components to complete end-to-end workflows.
+	
