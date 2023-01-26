@@ -1,0 +1,392 @@
+Tests for API HTTPS/GET https://ninja-weather.com/v1/weather?
+
+TEST 1: Happy path by coordinates
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameters lat and lon 
+Example https://ninja-weather.com/v1/weather?lat=32.7830600&lon=-96.8066700
+Result should be in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 200, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has. 
+
+
+TEST 2: Happy Path by ZIP 
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter ZIP
+Example https://ninja-weather.com/v1/weather?zip=75001
+Result should be in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 200, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has. 
+
+
+
+TEST 3: Happy Path by City only
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter city
+Example https://ninja-weather.com/v1/weather?city=Dallas
+Result should be in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 200, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has. 
+
+
+TEST 4: Happy Path by City and state
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameters city and state
+Example https://ninja-weather.com/v1/weather?city=Dallas&state=texas
+Result should be in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 200, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has. 
+
+
+TEST 5: Happy Path by City and country
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameters city and country
+Example https://ninja-weather.com/v1/weather?city=Dallas&country=usa
+Result should be in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 200, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has. 
+
+
+TEST 6: Happy Path by City, country and State 
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameters city, country and state
+Example https://ninja-weather.com/v1/weather?city=Dallas&country=usa&state=Texas
+Result should be in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 200, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+TEST 7: Negative Path by state and country
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameters state and country
+Example https://ninja-weather.com/v1/weather?state=Texas&country=usa
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+TEST 8: Negative Path by lat
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lat
+Example https://ninja-weather.com/v1/weather?lat=32.7830600
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+TEST 9: Negative Path by lon
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+TEST 10: Negative Path by lon, lat and city
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon, lat and city
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700&lat=32.7830600&city=sao%20paulo
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+TEST 11: Negative Path by lon, lat and zip
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon, lat and zip
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700&lat=32.7830600&zip=75001
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+TEST 11: Negative Path by lon, lat , zip, country
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon, lat, zip and country
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700&lat=32.7830600&zip=75001&country=usa
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+
+TEST 12: Negative Path by lon, lat , zip, country and city
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon, lat, zip, country and city
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700&lat=32.7830600&zip=75001&country=usa&city=dallas
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+TEST 13: Negative Path by lon, lat , zip, country, city and state
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon, lat, zip, country, city and state
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700&lat=32.7830600&zip=75001&country=usa&city=dallas&state=texas
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+
+TEST 14: Negative Path by lat , zip, country, city and state
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lat, zip, country, city and state
+Example https://ninja-weather.com/v1/weather?lat=32.7830600&zip=75001&country=usa&city=dallas&state=texas
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+
+
+TEST 15: Negative Path by lon , zip, country, city and state
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon, zip, country, city and state
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700&zip=75001&country=usa&city=dallas&state=texas
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
+
+TEST 15: Negative Path by zip, country, city and state
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter zip, country, city and state
+Example https://ninja-weather.com/v1/weather?zip=75001&country=usa&city=dallas&state=texas
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Create assertion to validate in response has the correct attributes
+Create assertion to validate response is 400,500, or whatever the response is 
+Create assertion to validate response has responded fast enough, depending on the non functional requirements the API has.
