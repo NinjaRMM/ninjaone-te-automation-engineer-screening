@@ -53,24 +53,6 @@ public class knapsack_test extends step1Knapsack
         assertEquals( expected, result);
     }
 
-    // 
-    @Test
-    public void Test_DuplicatedItemsWeight() 
-    {
-        int weight= 10;
-        int items_weight[] = {3, 6, 8, 8};// duplicate 8 values 
-        int items_values[] = {50, 60, 100, 120};
-        /* this test is an intentionally failed scenario due to my testing done the best solution
-         * is 120 but my code only could find 110 to approach a better solution I would have to change the code with a 
-         * combinatory approach with higher complexity
-         * Solution expected 120 with combination 8 of weight 
-         * 
-         */
-        int expected = 120;
-        int result = knapsack(weight, items_weight, items_values);
-        System.out.println("Test 5:"+result);
-        assertEquals( expected, result);
-    }
     @Test
     public void Test_DuplicatedItemsValue()
     {
@@ -80,6 +62,18 @@ public class knapsack_test extends step1Knapsack
         int expected = 160;
         int result = knapsack(weight, items_weight, items_values);
         System.out.println("Test 5:"+result);
+        assertEquals( expected, result);
+    }
+
+    @Test
+    public void Test_LongerItemsList() 
+    {
+        int weight= 10;
+        int items_weight[] = {1, 3, 4, 6, 8};
+        int items_values[] = {20,40,50, 60, 100};
+        int expected = 120;
+        int result = knapsack(weight, items_weight, items_values);
+        System.out.println("Test 6:"+result);
         assertEquals( expected, result);
     }
 }
