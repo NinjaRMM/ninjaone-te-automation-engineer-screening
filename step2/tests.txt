@@ -1,14 +1,14 @@
 **Weather API Testing**
-API /v1/weather
+API https://ninja-weather.com/v1/weather
 
 Acording to the requirements shown in the README.md document the following test cases will be as listed below:
-Happy path
-1.- HTTP GET method obtain the weather by city
-2.- HTTP GET method obtain the weather by zip code
-3.- HTTP GET method obtain the weather by latitude and longitude
-4.- HTTP GET method obtain the weather by city and state
-5.- HTTP GET method obtain the weather by city and country
-6.- HTTP GET method obtain the weather by city, state and country
+Happy path Tests:
+1.- https://ninja-weather.com/v1/weather?city=NewYorkCity method obtain the weather by city
+2.- https://ninja-weather.com/v1/weather?zip=1001 method obtain the weather by zip code
+3.- https://ninja-weather.com/v1/weather?lat=40.730610&lon=-73.935242 method obtain the weather by latitude and longitude
+4.- https://ninja-weather.com/v1/weather?city=NewYorkCity&state=NewYork method obtain the weather by city and state
+5.- https://ninja-weather.com/v1/weather?city=NewYorkCity&country=US method obtain the weather by city and country
+6.- https://ninja-weather.com/v1/weathercity=NewYorkCity&state=NewYork&country=US method obtain the weather by city, state and country
 
 **Sample Response**
 
@@ -22,12 +22,12 @@ Happy path
   "max_temp": 23,
   "wind_speed": "3.13",
   "wind_degrees": "166",
-  "sunrise": "2022-12-27T09:28:32.047Z",
-  "sunset": "2022-12-27T20:27:28.021Z"
+  "sunrise": "2023-01-24T09:28:32.047Z",
+  "sunset": "2023-01-24T20:27:28.021Z"
 }
 ```
 
-Assertions for this api response: 
+Assertions for this apis responses: 
 Status code 200
 Validate Json response contains variables: cloud_pct,temp,feels_like,humidity,min_temp,max_temp,wind_speed,wind_degrees,sunrise,sunset 
 Validate Json response contains variables with corresponding data type: 
@@ -36,19 +36,19 @@ wind_degrees (string),sunrise (string),sunset (string)
 Validate json sunrise and sunset variables are with date time and timezone format
 
 
-Negative path
-1.- HTTP GET method obtain the weather by city and zip code
-2.- HTTP GET method obtain the weather by zip code and latitud/longitude 
-3.- HTTP GET method obtain the weather by latitude/longitude, country and state
-4.- HTTP GET method obtain the weather by city, state and latitud/longitude
-5.- HTTP GET method obtain the weather by city, country and latitud/longitude
-6.- HTTP GET method obtain the weather by city, state, country and latitud/longitude
-7.- HTTP GET method obtain the weather by city, state, country, zip code and latitud/longitude
-8.- HTTP GET method obtain the weather by zip code, state and latitud/longitude 
-9.- HTTP GET method obtain the weather by zip code, country and latitud/longitude 
-10.- HTTP GET method obtain the weather by zip code, state, country and latitud/longitude 
+Negative path Tests:
+1.- https://ninja-weather.com/v1/weather?city=NewYorkCity&zip=1001 method obtain the weather by city and zip code
+2.- https://ninja-weather.com/v1/weather?zip=1001&lat=40.730610&lon=-73.935242 method obtain the weather by zip code and latitud/longitude 
+3.- https://ninja-weather.com/v1/weather?lat=40.730610&lon=-73.935242&country=US&state=NewYork method obtain the weather by latitude/longitude, country and state
+4.- https://ninja-weather.com/v1/weather?city=NewYorkCity&state=NewYork&lat=40.730610&lon=-73.935242 method obtain the weather by city, state and latitud/longitude
+5.- https://ninja-weather.com/v1/weather?city=NewYorkCity&country=US&lat=40.730610&lon=-73.935242 method obtain the weather by city, country and latitud/longitude
+6.- https://ninja-weather.com/v1/weather?city=NewYorkCity&state=NewYork&country=US&lat=40.730610&lon=-73.935242 method obtain the weather by city, state, country and latitud/longitude
+7.- https://ninja-weather.com/v1/weather??city=NewYorkCity&state=NewYork&country=US&zip=1001&lat=40.730610&lon=-73.935242 method obtain the weather by city, state, country, zip code and latitud/longitude
+8.- https://ninja-weather.com/v1/weather?zip=1001&state=NewYork&lat=40.730610&lon=-73.935242 method obtain the weather by zip code, state and latitud/longitude 
+9.- https://ninja-weather.com/v1/weather?zip=1001&country=US&lat=40.730610&lon=-73.935242 method obtain the weather by zip code, country and latitud/longitude 
+10.- https://ninja-weather.com/v1/weather?zip=1001&state=NewYork&country=US&lat=40.730610&lon=-73.935242 method obtain the weather by zip code, state, country and latitud/longitude 
 
-Assertions for this api: 
+Assertions for this api's response: 
 Status code 500/400 Acording design.
 Validate body response contains error message 
 **Sample error message Response**
