@@ -1,0 +1,129 @@
+
+
+const request = require('supertest')('https://ninja-weather.com');
+
+
+describe('Gets Weather API', () => {
+    it(''GET using City Name"', () => {
+    // Make a GET request to the weather using the city name
+    .get('v1/weather?city="Dallas')
+    .expect(200)
+    .then((res) => {
+    // assert data being return to not be empty
+        assert.isNotEmpty(res.body);
+    });
+
+    it(''GET using City Name and country"', () => {
+    // Make a GET request to the weather using the city name
+    .get('v1/weather?city="Sao Paulo"&country="Brazil"')
+    .expect(200)
+    .then((res) => {
+    // assert data being return to not be empty
+        assert.isNotEmpty(res.body);
+    });
+
+
+     it(''GET using Zip Code"', () => {
+    // Make a GET request to the weather using the city name
+    .get('v1/weather?zip="90210')
+    .expect(200)
+    .then((res) => {
+    // assert data being return to not be empty
+        assert.isNotEmpty(res.body);
+    });
+
+
+    it(''GET using GeoLocation"', () => {
+    // Make a GET request to the weather using the city name
+    .get('v1/weather?lat="40.740121'&log="-73.990593")
+    .expect(200)
+    .then((res) => {
+    // assert data being return to not be empty
+        assert.isNotEmpty(res.body);
+    });
+
+
+
+    it(''GET using City Name and validate the json format respond"', () => {
+    // Make a GET request to the weather using the city name
+    .get('v1/weather?city="Dallas')
+    .expect(200)
+    .then((res) => {
+    // assert data being return to not be empty
+        assert.isNotEmpty(res.body);
+    });
+    
+
+/// Validate the schema respond 
+  string schemaJson = @ 
+  {
+  "type": "object",
+  "properties": {
+    "cloud_pct": {
+      "type": "string"
+    },
+    "temp": {
+      "type": "integer"
+    },
+    "feels_like": {
+      "type": "integer"
+    },
+    "humidity": {
+      "type": "string"
+    },
+    "min_temp": {
+      "type": "integer"
+    },
+    "max_temp": {
+      "type": "integer"
+    },
+    "wind_speed": {
+      "type": "string"
+    },
+    "wind_degrees": {
+      "type": "string"
+    },
+    "sunrise": {
+      "type": "string"
+    },
+    "sunset": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "cloud_pct",
+    "temp",
+    "feels_like",
+    "humidity",
+    "min_temp",
+    "max_temp",
+    "wind_speed",
+    "wind_degrees",
+    "sunrise",
+    "sunset"
+  ]
+}
+
+        JsonSchema schema = JsonSchema.Parse(schemaJson);
+
+        JObject responseJSON = JObject.Parse(@"{
+        "cloud_pct": "25",
+        "temp": 5,
+        "feels_like": -2,
+        "humidity": "81",
+        "min_temp": -8,
+        "max_temp": 10,
+        "wind_speed": "12.86",
+        "wind_degrees": "330",
+        "sunrise": "2022-12-27T12:28:32.047Z",
+        "sunset": "2022-12-27T23:27:28.021Z"
+        }
+
+        bool valid = responseJSON.IsValid(schema);
+        });
+
+
+
+    
+}";
+
