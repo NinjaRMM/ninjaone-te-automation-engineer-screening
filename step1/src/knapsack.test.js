@@ -102,3 +102,27 @@ test('Verify array sizes of weights is greater than the values array', () => {
 test('Verify array sizes of weights is lower than the values array', () => {
     expect(knapsack(10008000, [11], [100, 11, 12, 13, 14, 15, 16, 17, 18, 19])).toBe(0);
 });
+
+// the total amount of weight you can carry = number
+// an array of the weights of all the items = not numbers
+// an array of the values of all of the items = numbers
+
+test('Verify weight array has only numbers', () => {
+    expect(knapsack(10008000, [11, '12', 13], [10, 11, 12])).toBe(0);
+});
+
+// the total amount of weight you can carry = number
+// an array of the weights of all the items = numbers
+// an array of the values of all of the items = not numbers
+
+test('Verify value array has only numbers', () => {
+    expect(knapsack(10008000, [11, 12, 13], [10, 11, '12'])).toBe(0);
+});
+
+// the total amount of weight you can carry = not number
+// an array of the weights of all the items = numbers
+// an array of the values of all of the items = numbers
+
+test('Verify amount of weight to carry is a number', () => {
+    expect(knapsack('10008000', [11, 12, 13], [10, 11, 12])).toBe(0);
+});

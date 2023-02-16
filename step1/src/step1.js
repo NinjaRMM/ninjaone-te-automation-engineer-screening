@@ -1,6 +1,17 @@
+function arrayContainsOnlyNumbers(array) {
+    return array.every(n => {
+        return typeof n === 'number';
+    });
+}
+
 function knapsack (totalWeight, itemsWeights, itemValue) {
     let itemsWeightsLength = itemsWeights.length;
     let itemValueLength = itemValue.length;
+
+    // If values are not numbers
+    if(!arrayContainsOnlyNumbers(itemsWeights) || !arrayContainsOnlyNumbers(itemValue) || !(typeof totalWeight === 'number')) {
+        return 0;
+    }
 
     // Validation for not null values
     if (totalWeight == null || itemsWeights == null || itemValue == null) {
@@ -24,20 +35,21 @@ function knapsack (totalWeight, itemsWeights, itemValue) {
 
     // Validation for throwing different error messages can be implemented. Or even a try catch structure
 
-    // Find the maximum value object and verify I can carry it
-    let maxArray = Array(totalWeight + 1).fill(0);
+    // Array to store value maximum items value
+    let maxValueArray = Array(totalWeight + 1).fill(0);
 
     // Iterate over the amount of items available
     for (i = 0; i < itemsWeightsLength; i++) {
         // Iterate over the total supported weight
         for (weight = totalWeight; weight >= 0; weight--) {
+            // If current item weight can fit knapsack
             if(itemsWeights[i] <= weight) {
-                // Find the maximum value item
-                maxArray[weight] = Math.max(maxArray[weight], maxArray[weight - itemsWeights[i]] + itemValue[i]);
+                // Find the maximum value item or items
+                maxValueArray[weight] = Math.max(maxValueArray[weight], maxValueArray[weight - itemsWeights[i]] + itemValue[i]);
             }
         }
     }
 
-    return maxArray[totalWeight];
+    return maxValueArray[totalWeight];
 }
 module.exports = knapsack;
