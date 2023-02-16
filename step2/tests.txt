@@ -1,0 +1,236 @@
+// Assumptions
+- We only have Dallas and Sao Paulo registered in our database
+-- For testing purposes, latitude of Dallas is 32.779167 and longitude is -96.808891
+-- For testing purposes, latitude of Sao Paulo is -23.533773 and longitude is -46.625290
+- Latitude range is -90 to +90
+- Longitude range is -180 to +180
+- Only GET request method is implemented
+- POST and PUT exist for other purposes not included in the description
+- No authorization is required to get elements (If it is, tests around authorization should be added)
+
+BASE_URL = https://ninja-weather.com/v1/weather
+
+/* Requests to generate 200 code */
+
+// Request 1
+Description:
+Verify only mandatory parameter city returns 200
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Dallas"
+Request Method: GET
+Expected response code: 200
+Expected response body:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+// Request 2
+
+Description:
+Verify mandatory parameter city plus optional values returns 200
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Dallas"&state="Texas"&country="United States"
+Request Method: GET
+Expected response code: 200
+Expected response body:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+// Request 3
+Description:
+Verify valid US zip code 
+Full Request URL:
+https://ninja-weather.com/v1/weather?zip="75001"
+Request Method: GET
+Expected response code: 200
+Expected response body:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+// Request 4
+Description:
+Verify valid lat and lon for Sao Paulo
+Full Request URL:
+https://ninja-weather.com/v1/weather?lat="-23.533773"&lon="-46.625290"
+Request Method: GET
+Expected response code: 200
+Expected response body:
+{
+  "cloud_pct": "45",
+  "temp": 23,
+  "feels_like": 23,
+  "humidity": "86",
+  "min_temp": 22,
+  "max_temp": 23,
+  "wind_speed": "3.13",
+  "wind_degrees": "166",
+  "sunrise": "2022-12-27T09:28:32.047Z",
+  "sunset": "2022-12-27T20:27:28.021Z"
+}
+
+/* Requests to generate 404 */
+
+// Request 1
+Description:
+Verify invalid city 
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Wonderland"
+Request Method: GET
+Expected response code: 404
+Expected response body:
+{
+  "status": "error",
+  "message": "City: 'Wonderland' not found"
+}
+
+// Request 2
+Description:
+Verify inexistent zip code (but 5 digits)
+Full Request URL:
+https://ninja-weather.com/v1/weather?zip="75999"
+Request Method: GET
+Expected response code: 404
+Expected response body:
+{
+  "status": "error",
+  "message": "zip: '8110293341' not found"
+}
+
+// Request 3
+Description:
+Verify inexistent lat and lon combination
+Full Request URL:
+https://ninja-weather.com/v1/weather?lat="-90"&lon="-46.625290"
+Request Method: GET
+Expected response code: 404
+Expected response body:
+{
+  "status": "error",
+  "message": "lat: '-90' with lon: '-46.625290' not found"
+}
+
+
+/* Requests to generate 400 */
+
+// Request 1
+Description:
+Verify invalid parameter sent
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Dallas"&county="Orange"
+Request Method: GET
+Expected response code: 400
+Expected response body:
+{
+  "status": "error",
+  "message": "Bad request. Parameter 'county' not accepted"
+}
+
+// Request 2
+Description:
+Verify existing city outside US and sending State
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Sao Paulo"&state="Sao Paulo"
+Request Method: GET
+Expected response code: 400
+Expected response body:
+{
+  "status": "error",
+  "message": "Bad Request. State only available for United States cities"
+}
+
+// Request 3
+Description:
+Verify more than 5 digit zip code
+Full Request URL:
+https://ninja-weather.com/v1/weather?zip="123456"
+Request Method: GET
+Expected response code: 400
+Expected response body:
+{
+  "status": "error",
+  "message": "Bad Request. Zip code length should be 5"
+}
+
+// Request 4
+Description:
+Verify latitude more than expected range
+Full Request URL:
+https://ninja-weather.com/v1/weather?lat="-90.1"&lon="180"
+Request Method: GET
+Expected response code: 400
+Expected response body:
+{
+  "status": "error",
+  "message": "Bad Request. Latitude range is -90 to +90"
+}
+
+// Request 5
+Description:
+Verify longitude more than expected range
+Full Request URL:
+https://ninja-weather.com/v1/weather?lat="90"&lon="180.1"
+Request Method: GET
+Expected response code: 400
+Expected response body:
+{
+  "status": "error",
+  "message": "Bad Request. Longitude range is -180 to +180"
+}
+
+/* Requests to generate 405 */
+
+// Request 1
+Description:
+Verify method not allowed is displayed if request method is other than GET
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Dallas"
+Request Method: DELETE
+Expected response code: 405
+Expected response body:
+{
+  "status": "error",
+  "message": "Method DELETE not allowed"
+}
+
+/* Requests to generate 501 */
+
+// Request 1
+Description:
+Verify implementation does not have a method that was not part of implementation
+Full Request URL:
+https://ninja-weather.com/v1/weather?city="Dallas"
+Request Method: COPY
+Expected response code: 501
+Expected response body:
+{
+  "status": "error",
+  "message": "Method COPY not implemented"
+}
