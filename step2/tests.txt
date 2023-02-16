@@ -1,0 +1,32 @@
+
+TC1 Retrieve current weather by geolocation coordinates
+- HTTP GET to /v1/weather endpoint with the latitude and longitude parameters
+- Should return successful response with the current weather data.
+
+TC2 Retrieve current weather by 5-digit ZIP code of the desired location
+- HTTP GET to /v1/weather endpoint with the zip parameter
+- Should return successful response with the current weather data.
+
+TC3 Retrieve current weather by the name of the city 
+- HTTP GET to /v1/weather endpoint with the city
+- Should return successful response with the current weather data.
+
+TC4 Retrieve current weather by the name of the city and the State
+- HTTP GET to /v1/weather endpoint with the city and state parameters
+- Should return successful response with the current weather data.
+
+TC5 Retrieve current weather by the name of the city and country
+- HTTP GET to /v1/weather endpoint with the city and country parameters
+- Should return successful response with the current weather data.
+
+Test Case 6 - 10 : Missing required parameter (One for each required parameter lon/lat/city/Zip code)
+- HTTP GET to /v1/weather endpoint a required parameter
+- Should return an error response with a message indicating the missing parameter
+
+Test Case 11: Invalid values
+- HTTP GET request to /v1/weather endpoint with an invalid parameter value
+- Should return an error response with a message indicating the invalid parameter value
+
+Test Case 12 - X, corner cases
+- HTTP GET request to /v1/weather endpoint with with all corner cases (max/min values, nulls, etc)
+- Should assert for the correct response for each case.

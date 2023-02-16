@@ -1,0 +1,22 @@
+{
+  "name": "ninjaone-te-automation-engineer-screening",
+  "version": "1.0.0",
+  "description": "My knapsack solution with unit tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha 'step1/test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NinjaRMM/ninjaone-te-automation-engineer-screening.git"
+  },
+  "author": "hugocjim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NinjaRMM/ninjaone-te-automation-engineer-screening/issues"
+  },
+  "homepage": "https://github.com/NinjaRMM/ninjaone-te-automation-engineer-screening#readme",
+  "dependencies": {
+    "mocha": "^10.2.0"
+  }
+}
