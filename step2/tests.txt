@@ -1,32 +1,148 @@
+----------------------------------------------------------------------------------------------
 
 TC1 Retrieve current weather by geolocation coordinates
 - HTTP GET to /v1/weather endpoint with the latitude and longitude parameters
 - Should return successful response with the current weather data.
 
+https://ninja-weather.com/v1/weather?lat=37.7749&lon=-122.4194
+
+200  OK
+{
+  "cloud_pct": "75",
+  "temp": 13,
+  "feels_like": 10,
+  "humidity": "62",
+  "min_temp": 10,
+  "max_temp": 15,
+  "wind_speed": "4.12",
+  "wind_degrees": "280",
+  "sunrise": "2023-02-15T12:28:32.047Z",
+  "sunset": "2023-02-15T23:27:28.021Z"
+}
+
+----------------------------------------------------------------------------------------------
+
 TC2 Retrieve current weather by 5-digit ZIP code of the desired location
 - HTTP GET to /v1/weather endpoint with the zip parameter
 - Should return successful response with the current weather data.
 
+https://ninja-weather.com/v1/weather?zip=90210
+ 200 OK
+
+{
+  "cloud_pct": "10",
+  "temp": 23,
+  "feels_like": 20,
+  "humidity": "42",
+  "min_temp": 19,
+  "max_temp": 26,
+  "wind_speed": "6.17",
+  "wind_degrees": "250",
+  "sunrise": "2023-02-15T12:28:32.047Z",
+  "sunset": "2023-02-15T23:27:28.021Z"
+}
+
+----------------------------------------------------------------------------------------------
 TC3 Retrieve current weather by the name of the city 
 - HTTP GET to /v1/weather endpoint with the city
 - Should return successful response with the current weather data.
+
+https://ninja-weather.com/v1/weather?city=Dallas
+
+200 OK
+
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+----------------------------------------------------------------------------------------------
 
 TC4 Retrieve current weather by the name of the city and the State
 - HTTP GET to /v1/weather endpoint with the city and state parameters
 - Should return successful response with the current weather data.
 
+https://ninja-weather.com/v1/weather?city=Denver&state=CO
+
+200 OK 
+
+{
+  "cloud_pct": "35",
+  "temp": -2,
+  "feels_like": -7,
+  "humidity": "62",
+  "min_temp": -5,
+  "max_temp": 1,
+  "wind_speed": "3.6",
+  "wind_degrees": "170",
+  "sunrise": "2023-02-15T12:28:32.047Z",
+  "sunset": "2023-02-15T23:27:28.021Z"
+}
+
+
+----------------------------------------------------------------------------------------------
+
 TC5 Retrieve current weather by the name of the city and country
 - HTTP GET to /v1/weather endpoint with the city and country parameters
 - Should return successful response with the current weather data.
+
+https://ninja-weather.com/v1/weather?city=Paris&country=France
+
+200 OK
+
+{
+  "cloud_pct": "90",
+  "temp": 8,
+  "feels_like": 5,
+  "humidity": "75",
+  "min_temp": 5,
+  "max_temp": 10,
+  "wind_speed": "4.7",
+  "wind_degrees": "220",
+  "sunrise": "2023-02-15T12:28:32.047Z",
+  "sunset": "2023-02-15T23:27:28.021Z"
+}
+
+
+----------------------------------------------------------------------------------------------
 
 Test Case 6 - 10 : Missing required parameter (One for each required parameter lon/lat/city/Zip code)
 - HTTP GET to /v1/weather endpoint a required parameter
 - Should return an error response with a message indicating the missing parameter
 
+https://ninja-weather.com/v1/weather
+400 Bad Request
+
+{
+  "error": "Missing required parameter: city"
+}
+
+
+----------------------------------------------------------------------------------------------
+
 Test Case 11: Invalid values
 - HTTP GET request to /v1/weather endpoint with an invalid parameter value
 - Should return an error response with a message indicating the invalid parameter value
 
+https://ninja-weather.com/v1/weather?city=12345
+400 Bad Request
+
+{
+  "error": "Invalid parameter value: city"
+}
+
+----------------------------------------------------------------------------------------------
+
 Test Case 12 - X, corner cases
 - HTTP GET request to /v1/weather endpoint with with all corner cases (max/min values, nulls, etc)
 - Should assert for the correct response for each case.
+
+
+----------------------------------------------------------------------------------------------
