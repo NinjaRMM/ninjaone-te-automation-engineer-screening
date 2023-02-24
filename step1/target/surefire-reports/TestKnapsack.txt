@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: TestKnapsack
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.335 s <<< FAILURE! - in TestKnapsack
+testDPSolution(TestKnapsack)  Time elapsed: 0.009 s  <<< FAILURE!
+java.lang.AssertionError: expected:<110> but was:<100>
+	at TestKnapsack.testDPSolution(TestKnapsack.java:30)
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="0.446" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="19"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/maribelzamoranocastro/eclipse-workspace/step1/target/test-classes:/Users/maribelzamoranocastro/eclipse-workspace/step1/target/classes:/Users/maribelzamoranocastro/.m2/repository/org/testng/testng/7.7.1/testng-7.7.1.jar:/Users/maribelzamoranocastro/.m2/repository/com/beust/jcommander/1.82/jcommander-1.82.jar:/Users/maribelzamoranocastro/.m2/repository/org/webjars/jquery/3.6.1/jquery-3.6.1.jar:/Users/maribelzamoranocastro/.m2/repository/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar:/Users/maribelzamoranocastro/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar:/Users/maribelzamoranocastro/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="19"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="MX"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/maribelzamoranocastro/eclipse-workspace/step1/target/surefire/surefirebooter16224659284357432839.jar /Users/maribelzamoranocastro/eclipse-workspace/step1/target/surefire 2023-02-21T04-20-10_820-jvmRun1 surefire7922376513634899782tmp surefire_014554259513997942358tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/maribelzamoranocastro/eclipse-workspace/step1/target/test-classes:/Users/maribelzamoranocastro/eclipse-workspace/step1/target/classes:/Users/maribelzamoranocastro/.m2/repository/org/testng/testng/7.7.1/testng-7.7.1.jar:/Users/maribelzamoranocastro/.m2/repository/com/beust/jcommander/1.82/jcommander-1.82.jar:/Users/maribelzamoranocastro/.m2/repository/org/webjars/jquery/3.6.1/jquery-3.6.1.jar:/Users/maribelzamoranocastro/.m2/repository/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar:/Users/maribelzamoranocastro/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar:/Users/maribelzamoranocastro/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/maribelzamoranocastro"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2023-01-17"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/maribelzamoranocastro/eclipse-workspace/step1"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/maribelzamoranocastro/eclipse-workspace/step1/target/surefire/surefirebooter16224659284357432839.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="19.0.2+7-44"/>
+    <property name="user.name" value="maribelzamoranocastro"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="11.7.2"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="/Users/maribelzamoranocastro/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/var/folders/pb/qxdwsf6j1bs8kgd8zpfn69vc0000gn/T/"/>
+    <property name="java.version" value="19.0.2"/>
+    <property name="user.dir" value="/Users/maribelzamoranocastro/eclipse-workspace/step1"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/maribelzamoranocastro/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="19.0.2+7-44"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="63.0"/>
+  </properties>
+  <testcase name="testDPSolution" classname="TestKnapsack" time="0.004"/>
+</testsuite>

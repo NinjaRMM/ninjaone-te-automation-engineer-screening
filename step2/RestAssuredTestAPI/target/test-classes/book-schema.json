@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "isbn": "string",
+  "title": "string",
+  "subTitle": "string",
+  "author": "string",
+  "publish_date": "2023-02-23T23:54:42.391Z",
+  "publisher": "string",
+  "pages": 0,
+  "description": "string",
+  "website": "string"
+}

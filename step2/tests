@@ -1,0 +1,56 @@
+	ResponseSpecification responseSpec;
+	
+	@BeforeClass
+	public void setResponseSpecs () {
+		builder = new ResponseSpecBuilder()
+		.expectStatusCode(200);
+		.expectBody("temp", equalTo(234)).
+		.expectBody("cloud_pct", containsString("25"));
+		
+		responseSpec = builder.build();
+	}
+	
+	@Test
+	void testGetWeatherByLocation(city, state, country) {
+		Map<String, String> requestParams = new HashMap<>;
+		requestParams.put("city", city);
+		if (state) requestParams.put("state", state);
+		if (country) requestParams.put("country", country);
+		
+		RequestSpecification requestByLoc = new RequestSpecBuilder().addParams(requestParams).build();
+			
+		given().
+			spec(requestByLoc).
+		when().
+			get(URL).
+		then().
+			spec(responseSpec).
+	}
+	
+	@Test
+	void testGetWeatherByCoordinates(lat, lon) {
+		Map<String, String> requestParams = new HashMap<>;
+		requestParams.put("lat", lat);
+		requestParams.put("lon", lon);
+		
+		RequestSpecification requestByCoordinates = new RequestSpecBuilder().addParams(requestParams).build();
+			
+		given().
+			spec(requestByCoordinates).
+		when().
+			get(URL).
+		then().
+			spec(responseSpec).
+	}
+	
+	@Test
+	void testGetWeatherByZipCode(zipCode) {
+		RequestSpecification requestByZipCode = new RequestSpecBuilder().addParam("zipcode", zipCode).build();
+			
+		given().
+			spec(requestByZipCode).
+		when().
+			get(URL).
+		then().
+			spec(responseSpec).
+	}
