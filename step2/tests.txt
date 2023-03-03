@@ -1,0 +1,143 @@
+// Weather API Tests
+
+import rest-assure-library
+
+host = https://ninja-weather.com
+api_version = v1
+weather_endpoint = weather
+
+weather_url = `${host}/{api_version}/{weather_endpoint}`
+
+weather_json_schema = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "cloud_pct": {
+      "type": "string"
+    },
+    "temp": {
+      "type": "integer"
+    },
+    "feels_like": {
+      "type": "integer"
+    },
+    "humidity": {
+      "type": "string"
+    },
+    "min_temp": {
+      "type": "integer"
+    },
+    "max_temp": {
+      "type": "integer"
+    },
+    "wind_speed": {
+      "type": "string"
+    },
+    "wind_degrees": {
+      "type": "string"
+    },
+    "sunrise": {
+      "type": "string"
+    },
+    "sunset": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "cloud_pct",
+    "temp",
+    "feels_like",
+    "humidity",
+    "min_temp",
+    "max_temp",
+    "wind_speed",
+    "wind_degrees",
+    "sunrise",
+    "sunset"
+  ]
+}
+
+test(should return the weather data if query parameters lat (latitude) and lon (longitude) are specified, {
+    Given()
+    When().GET(`{weather_url}?lat=13.41&lon=12.01`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return bad request error when query parameters lat is not specified, {
+    Given()
+    When().GET(`{weather_url}?lon=12.01`)
+    Then().StatusCode(400)
+})
+
+test(should return bad request error when query parameters lon is not specified, {
+    Given()
+    When().GET(`{weather_url}?lat=13.41`)
+    Then().StatusCode(400)
+})
+
+test(should return the weather data if a US zip code query parameter is specified, {
+    Given()
+    When().GET(`{weather_url}?zip=90210`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return not found error if non US-zip code query parameter is specified, {
+    Given()
+    When().GET(`{weather_url}?zip=3000`) // Melbourne, Australia post code
+    Then().StatusCode(404)
+})
+
+test(should return the weather data if city parameter is specified, {
+    Given()
+    When().GET(`{weather_url}?city=Austin`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return the weather data if US city and state parameters are specified, {
+    Given()
+    When().GET(`{weather_url}?city=Austin&state=Texas`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return the weather data if non-US city and country parameters are specified, {
+    Given()
+    When().GET(`{weather_url}?city=Melbourne&country=Australia`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return bad request error city is not specified, {
+    Given()
+    When().GET(`{weather_url}?state=Texas`)
+    Then().StatusCode(400)
+})
+
+test(should return not found error of misspelled city, {
+    Given()
+    When().GET(`{weather_url}?city=Chiago`)
+    Then().StatusCode(400)
+})
+
+test(should return the weather data if city is type in different case, {
+    Given()
+    When().GET(`{weather_url}?city=MaDRId`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return the weather data if city has spaces, {
+    Given()
+    When().GET(`{weather_url}?city=Los Angeles`)
+    Then().StatusCode(200)
+    And().MatchesJsonSchema(weather_json_schema)
+})
+
+test(should return bad request error when non-US city and state query parameters are specified, {
+    Given()
+    When().GET(`{weather_url}?city=Melbourne&state=Victoria`)
+    Then().StatusCode(400)
+})
