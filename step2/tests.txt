@@ -1,0 +1,131 @@
+-------------------------------------
+Feature to test API  /v1/weather
+-------------------------------------
+
+******************************************************
+                ***** Negative tests ******
+******************************************************
+
+Missing paramters required 
+_____________________________
+
+1 - Test API without using parameters marked as required
+    URL: https://ninja-weather.com/v1/weather
+    expected result: 400 (Bad request)
+    
+2 - Test API using only one parameter lat or lon (Using a random function to decide if use lat or lon)
+
+    A random selection test:
+    URL: https://ninja-weather.com/v1/weather?lat=21.641317176754182
+    expected result: 400 (Bad request)
+
+    URL: https://ninja-weather.com/v1/weather?lon=-106.56304978462533
+    expected result: 400 (Bad request)
+
+3 - Test API without use city and using only optional paramters state and country 
+    URL: https://ninja-weather.com/v1/weather?country=Mexico&state=Guadalajara
+    expected result: 400 (Bad request)
+
+4 - Test non US zipcode (i.e. Brazil zipcode) 
+    URL: https://ninja-weather.com/v1/weather?zip=85814-355 
+    expected result: 200 with empty values or message with error_message
+
+5 - Test API using all parameters with wrong data
+    URL: https://ninja-weather.com/v1/weather?lat=12&lon=165&country=Mexico&state=Norway&zipcode=-12341
+    expected result: 400 (Bad request)
+        
+
+Empty values in paramters
+_____________________________
+
+6 - Test API leaving empty value for "required" parameters
+    Assuming that I'm using a random selection function:
+        URL1: https://ninja-weather.com/v1/weather?lat=
+        URL2: https://ninja-weather.com/v1/weather?lon=
+        URL3: https://ninja-weather.com/v1/weather?zip=
+        URL4: https://ninja-weather.com/v1/weather?city=
+        expected result: 400 (Bad request)
+
+7 - Test API leaving empty value for "optional" parameters
+    Assuming that I'm using a random selection function:
+        URL1: https://ninja-weather.com/v1/weather?city=Jalisco&state=
+        URL1: https://ninja-weather.com/v1/weather?city=Jalisco&country=
+        expected result: 200 
+
+******************************************************
+                ***** Tests ******
+******************************************************        
+
+8 - Test API using lat and lon
+    URL: https://ninja-weather.com/v1/weather?lat=21.641317176754182&lon=-106.56304978462533
+    validate expected result is: 200
+    validate cloud_pct is not empty
+    validate temp is not empty
+    validate feels_like is not empty
+    validate humidity is not empty
+    validate min_temp is not empty
+    validate max_temp is not empty
+    validate wind_speed is not empty
+    validate wind_degrees is not empty
+    validate sunrise is not empty
+    validate sunset is not empty
+
+9 - Test API using a US zipcode
+    URL: https://ninja-weather.com/v1/weather?zip=44321
+    validate expected result is: 200
+    validate cloud_pct is not empty
+    validate temp is not empty
+    validate feels_like is not empty
+    validate humidity is not empty
+    validate min_temp is not empty
+    validate max_temp is not empty
+    validate wind_speed is not empty
+    validate wind_degrees is not empty
+    validate sunrise is not empty
+    validate sunset is not empty
+
+10 - Test API using city as parameter
+    URL: https://ninja-weather.com/v1/weather?city=Dallas
+    validate expected result is: 200
+    validate cloud_pct is not empty
+    validate temp is not empty
+    validate feels_like is not empty
+    validate humidity is not empty
+    validate min_temp is not empty
+    validate max_temp is not empty
+    validate wind_speed is not empty
+    validate wind_degrees is not empty
+    validate sunrise is not empty
+    validate sunset is not empty 
+
+11 - Test API using city as parameter + optional values
+    URL: https://ninja-weather.com/v1/weather?city=Dallas&country=US
+    URL: https://ninja-weather.com/v1/weather?city=Dallas&state=Texas
+    URL: https://ninja-weather.com/v1/weather?city=Dallas&state=Texas&country=US
+    validate expected result is: 200
+    validate cloud_pct is not empty
+    validate temp is not empty
+    validate feels_like is not empty
+    validate humidity is not empty
+    validate min_temp is not empty
+    validate max_temp is not empty
+    validate wind_speed is not empty
+    validate wind_degrees is not empty
+    validate sunrise is not empty
+    validate sunset is not empty      
+
+11 - Test API to validate expected data type
+    URL: https://ninja-weather.com/v1/weather?city=Dallas&country=US
+    URL: https://ninja-weather.com/v1/weather?city=Dallas&state=Texas
+    URL: https://ninja-weather.com/v1/weather?city=Dallas&state=Texas&country=US
+    validate expected result is: 200
+    validate cloud_pct is string
+    validate temp is number
+    validate feels_like is number
+    validate humidity is string
+    validate min_temp is number
+    validate max_temp is number
+    validate wind_speed is string
+    validate wind_degrees is string
+    validate sunrise is string
+    validate sunset is string     
