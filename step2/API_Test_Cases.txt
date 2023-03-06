@@ -1,0 +1,200 @@
+TEST_001_Search_By_Coordinates
+Prerrequisites:Valid Coordinates (configured for the test environment)
+Parameters lat: 29.979175 and lon: 31.134358
+Call GET:https://ninja-weather.com/v1/weather?lat=29.979175&lon=31.134358
+Expected Reult:
+	{
+	  "cloud_pct": "25",
+	  "temp": 5,
+ 	 "feels_like": -2,
+	  "humidity": "81",
+	  "min_temp": -8,
+	  "max_temp": 10,
+	  "wind_speed": "12.86",
+	  "wind_degrees": "330",
+	  "sunrise": "2022-12-27T12:28:32.047Z",
+	  "sunset": "2022-12-27T23:27:28.021Z"
+	}
+Assertions:	HTTPS response code 200
+		Resposse parameters has conten ( not null values )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+
+TEST_002_Search_By_Zip 
+Prerrequisites: Valid Zip code (configured for the test environment)
+Call GET:https://ninja-weather.com/v1/weather?zip=20218
+Expected result:
+	{
+	  "cloud_pct": "25",
+	  "temp": 5,
+	  "feels_like": -2,
+	  "humidity": "81",
+	  "min_temp": -8,
+	  "max_temp": 10,
+	  "wind_speed": "12.86",
+	  "wind_degrees": "330",
+	  "sunrise": "2022-12-27T12:28:32.047Z",
+	  "sunset": "2022-12-27T23:27:28.021Z"
+	}
+Assertions:	HTTPS response code 200
+		Resposse parameters has conten ( not null values )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+
+
+TEST_003_Seach_By_City
+Prerrequisites: Valid City name (configured for the test environment)
+Call GET:https://ninja-weather.com/v1/weather?city=Huston
+Expected result:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+Assertions:	HTTPS response code 200
+		Resposse parameters has conten ( not null values )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+
+TEST_Search_By_City_and_State
+Prerrequisites: Valid City and State pair (configured for the test environment)
+call GET:https://ninja-weather.com/v1/weather?city=Dallas&state=Texas
+Expected result:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+Assertions:	HTTPS response code 200
+		Resposse parameters has conten ( not null values )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+
+TEST_005_Search_By_City_and_Country
+Prerrequisites: Valid City and Contry pair (configured for the test environment)
+Call GET:https://ninja-weather.com/v1/weather?city=Dallas&country=USA
+Expected result:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+Assertions:	HTTPS response code 200
+		Resposse parameters has conten ( not null values )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+
+TEST_006_Search_By_City_Country_and_State 
+Prerrequisites:None
+Call GET:https://ninja-weather.com/v1/weather?city=Huston&state=Texas&country=USA
+Expected result:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+Assertions:	HTTPS response code 200
+		Resposse parameters has conten ( not null values )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+TEST_007_NEG_Search_By_State_and_Country
+Prerrequisites: Invalid State and Country pair
+Call GET:https://ninja-weather.com/v1/weather?state=Texas&country=Mexico
+Expected result:
+{
+  "HTTP_Code":" "400",
+  "Dev_message": "A specific place not found for inputs"
+}
+
+Assertions:	HTTPS response code 400
+		Dev_Message is shown
+		No whather information is shown ( ex. cloud_pct, temp, feels_like, etc )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+TEST_008_NEG_Search_By_City_and_Country
+Prerrequisites: Invalid City and Country pair
+Call GET:https://ninja-weather.com/v1/weather?city=Buenos Aires&country=USA
+Expected result:
+{
+  "HTTP_Code":" "400",
+  "Dev_message": "A specific place not found for inputs"
+}
+
+Assertions:	HTTPS response code 400
+		Dev_Message is shown
+		No whather information is shown ( ex. cloud_pct, temp, feels_like, etc )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+TEST_009_NEG_Search_by_Longitude
+Prerrequisites:None
+Send API https://ninja-weather.com/v1/weather? with parameter lon
+Example https://ninja-weather.com/v1/weather?lon=-96.8066700
+Result should NOT be  in format like below:
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+TEST_010_NEG_Search_By_Latitude
+Prerrequisites: Valid Latitude
+Call GET:https://ninja-weather.com/v1/weather?lat=32.7830600
+Expected result:
+{
+  "HTTP_Code":" "400",
+  "Dev_message": "A specific place not found for inputs"
+}
+Assertions:	HTTPS response code 400
+		Dev_Message is shown
+		No whather information is shown ( ex. cloud_pct, temp, feels_like, etc )
+		Response time not gratten than SLA ( ex. 200 ms)
+
+On similar way validate:
+	Invalid Convinations, Latitude and City/State/Contry; ZipCode and City/State/Contry; City/State/Contry and Lat/Lon
+	Invalid Names: Incomplete and not existing names (ex. Mesico, Coltomia, Tejuco, Eirat, etc)
+	Empty values such as /v1/weather?city=&state=&country= and /v1/weather?lat=&lon= 
+
+
+Based on proyect maturaty manual test cases to get decreased while automated test cases increase.
+
+
+
+
+
+
+

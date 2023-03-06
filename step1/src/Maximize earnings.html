@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Maximize earnings!</title>
+</head>
+<body>
+  <h1>Insert estimated Weight and Prices Pairs for each observed item</h1>
+  <label for="weights">Weights:</label>
+  <input type="text" id="weights" name="weights" value="3, 6, 8"><br>
+  <label for="prices">Prices:</label>
+  <input type="text" id="prices" name="prices" value="50, 60, 100"><br>
+  <h1>Insert estimated weight you can carry</h1>
+  <label for="maxWeight">Max Weight:</label>
+  <input type="text" id="maxWeight" name="maxWeight" value="10"><br>
+  <button onclick="calculateMaxPrice()">Calculate your posible earnings!</button>
+	<p id="maxPrice"></p>
+		<script>
+			function calculateMaxPrice() {
+			  const weightsInput = document.getElementById('weights').value;
+			  const pricesInput = document.getElementById('prices').value;
+			  const maxWeightInput = document.getElementById('maxWeight').value;
+
+			  const weights = weightsInput.split(',').map(parseFloat);
+			  const prices = pricesInput.split(',').map(parseFloat);
+			  const maxWeight = parseFloat(maxWeightInput);
+
+			  let maxPrice = 0;
+
+			  for (let i = 0; i < Math.pow(2, weights.length); i++) {
+				let totalWeight = 0;
+				let totalPrice = 0;
+
+				for (let j = 0; j < weights.length; j++) {
+				  if ((i >> j) & 1) {
+					totalWeight += weights[j];
+					totalPrice += prices[j];
+				  }
+				}
+
+				if (totalWeight <= maxWeight && totalPrice > maxPrice) {
+				  maxPrice = totalPrice;
+				}
+			  }
+
+			  const maxPriceDisplay = document.getElementById('maxPrice');
+			  maxPriceDisplay.textContent = `Max earnings: $${maxPrice}`;
+			}
+	  </script>
+</body>
+</html>

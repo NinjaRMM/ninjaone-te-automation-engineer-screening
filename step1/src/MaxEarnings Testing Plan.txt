@@ -1,0 +1,90 @@
+///////////////////// PERFORMANCE TESTING //////////////////////
+Define a test strategy and test plan, select testing tool, define entry and exit criteria’s.
+Prepare test environment ( Load Generators, software installation, etc)
+Define test scenarios with corresponding users, data, load generators location, system monitors, acceptance criteria (error rate, response time, system resources utilization) for each defined test scenario, for example:
+
+Assuming this application is planned to be used for amateur thief’s around the world, analyze/forecast/benchmark what the highest utilization time would be, assuming it was determined app would get 30 TPS on the busiest hour, and it was agreed to set response time SLA is 200 ms for each GET call with an error rate lower than 1% and CPU and Memory usage never go more than 90%.
+Define test cases to be scripted based on most common request kinds. (ex. 70% of the requests to be 3 items with carry limit of 30, 20% 5 items with carry limit of 45, 10%  10 items with carry limit of 50)
+Distribute load based on end user locations (ex. 30% Canada, 30% USA, 30% Mexico, 1% Philippines)
+
+Once Application under test, test environment and testing framework (data, scripts, monitors, LGs, etc.) are configured and sanity tested continue with test executions as:
+
+Execute Peak test, at 30 TPS for 1 hour, record metrics and compare with expected SLA. (Error rate, response time, System resources utilization)
+	Stress test, 30TPS, 40TPS, 50TPS, 60 TPS 20 minutes each, until crash or significant degradation (based on test plan) is observed
+	Endurance Test, run 30TPS for 8 hours
+	Soak test, run 60TPS for 8 hours
+	Scalability test, once ma TPS value is found, let’s assume 60TPS
+			Increase number of instances and capture performance
+			Increase instances capacity (CPU, Memory, etc.) and capture performance
+			Monitor auto scalability if applicable and tune trigger on/off settings
+
+Each followed by a smoke test and metrics collection confirmation.
+And formal technical and summary reports to be shared at the end of each execution
+Based on performance testing frequency, integrate with CI/CD  
+/////////////////////// FUNCTIONAL TESTING //////////////////////
+
+TC001_estimate_3Items_10Units
+Prerequisites: items weights: 3, 6, 8
+		Item prices: 50, 60, 100
+		Max Carry: 10
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $110
+Assertion: "Max earnings: $110"
+
+TC002_estimate_5Items_30Units
+Prerequisites: items weights: 3, 6, 8, 8, 6, 3
+		Item prices: 50, 60, 100, 60, 50
+		Max Carry: 30
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $270
+Assertion:  "Max earnings: $270"
+
+TC003_estimate_2Items_10Units
+Prerequisites: items weights: 9, 9
+		Item prices: 30, 31
+		Max Carry: 10
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $21
+Assertion: Max earnings: $21
+
+TC004_estimate_2Items_18Units
+Prerequisites: items weights: 9, 9
+		Item prices: 30, 31
+		Max Carry: 18
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $61
+Assertion: Max earnings: $61
+
+
+TC005_estimate_2Items_0Units
+Prerequisites: items weights: 9, 9
+		Item prices: 30, 31
+		Max Carry: 0
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $0
+Assertion: Max earnings: $0
+
+TC006_estimate_2Items_0Units
+Prerequisites: items weights: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		Item prices: 30, 20, 33, 22, 33, 44, 51, 6, 7,11
+		Max Carry: 35
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $233
+Assertion: Max earnings: $233
+
+TC007_NEG_estimate_letters
+Prerequisites: items weights: a
+		Item prices: b
+		Max Carry: a
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $0
+Assertion: Max earnings: 0 (would be better to send a error message, but system not prepare at the moment)
+
+TC008_NEG_estimate_NotMatchingPairs
+Prerequisites: items weights: 3, 5, 2
+		Item prices: 1, 2, 3, 3
+		Max Carry: 10
+Steps: Insert data and click on "Calculate your possible earnings!" button
+Expected Result: $6
+Assertion: Max earnings: $6 (would be better to send a error messages, but system not prepare at the moment)
+
