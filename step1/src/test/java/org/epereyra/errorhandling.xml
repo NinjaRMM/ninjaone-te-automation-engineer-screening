@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Suite -->
+<suite name="Error Handling">
+    <test name="Empty input">
+        <parameter name="weights"  value=""/>
+        <parameter name="values"  value=""/>
+        <parameter name="result"  value="0"/>
+        <parameter name="maxWeight"  value="100"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+    <test name="Array length mismatch 1 value missing">
+        <parameter name="weights"  value="30,20,50"/>
+        <parameter name="values"  value="200,100"/>
+        <parameter name="result"  value="700"/>
+        <parameter name="maxWeight"  value="100"/>
+        <classes>
+            <class name= "org.epereyra.errorhandler"/>
+        </classes>
+    </test>
+    <test name="Array length mismatch 1 weight missing">
+        <parameter name="weights"  value="30,20"/>
+        <parameter name="values"  value="200,100,400"/>
+        <parameter name="result"  value="700"/>
+        <parameter name="maxWeight"  value="100"/>
+        <classes>
+            <class name= "org.epereyra.errorhandler"/>
+        </classes>
+    </test>
+</suite>

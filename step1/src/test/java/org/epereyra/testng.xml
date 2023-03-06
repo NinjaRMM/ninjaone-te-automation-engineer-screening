@@ -1,0 +1,6 @@
+<suite name="Complete Regression Suite">
+    <suite-files>
+        <suite-file path="itemvariations.xml"/>
+        <suite-file path="errorhandling.xml"/>
+    </suite-files>
+</suite>

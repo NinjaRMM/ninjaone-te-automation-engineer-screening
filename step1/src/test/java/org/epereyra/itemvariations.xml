@@ -1,0 +1,60 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Suite -->
+<suite name="Item variations">
+    <!-- 3 items -->
+    <test name="3 Items all included">
+        <parameter name="weights"  value="30,20,50"/>
+        <parameter name="values"  value="200,100,400"/>
+        <parameter name="result"  value="700"/>
+        <parameter name="maxWeight"  value="100"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+    <test name="3 Items none included">
+        <parameter name="weights"  value="101,110,120"/>
+        <parameter name="values"  value="200,300,400"/>
+        <parameter name="result"  value="0"/>
+        <parameter name="maxWeight"  value="100"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+    <test name="3 Items some included">
+        <parameter name="weights"  value="101,110,120"/>
+        <parameter name="values"  value="200,300,400"/>
+        <parameter name="result"  value="700"/>
+        <parameter name="maxWeight"  value="230"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+    <!-- 10 items -->
+    <test name="10 Items all included">
+        <parameter name="weights"  value="100,150,200,250,300,350,400,450,500,550"/>
+        <parameter name="values"  value="500,10,300,20,400,400,200,200,10,20"/>
+        <parameter name="result"  value="2060"/>
+        <parameter name="maxWeight"  value="10000"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+    <test name="10 Items none included">
+        <parameter name="weights"  value="100,150,200,250,300,350,400,450,500,550"/>
+        <parameter name="values"  value="500,10,300,20,400,400,200,200,10,20"/>
+        <parameter name="result"  value="0"/>
+        <parameter name="maxWeight"  value="10"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+    <test name="10 Items some included">
+        <parameter name="weights"  value="100,150,200,250,300,350,400,450,500,550"/>
+        <parameter name="values"  value="500,10,300,20,400,400,200,200,10,20"/>
+        <parameter name="result"  value="1600"/>
+        <parameter name="maxWeight"  value="1000"/>
+        <classes>
+            <class name= "org.epereyra.itemvariations"/>
+        </classes>
+    </test>
+</suite>
