@@ -12,6 +12,7 @@ git clone https://github.com/isopropilick/eric-pereyra-03-03-22
 cd eric-pereyra-03-03-22/step1/
 mvn test
 ```
+![ALT](https://github.com/isopropilick/eric-pereyra-03-03-22/raw/master/step1/ok.png)
 
 ## Total time spent:
 8Hours 07Minutes 33Seconds
