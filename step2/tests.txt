@@ -1,0 +1,245 @@
+//-----------------------------//
+//-- The API testing process --//
+//-----------------------------//
+
+Execute each request using the cURL that you will find in this repository, saving the JSON obtained as well as the code and response message.
+
+//-----------------//
+//-- Assumptions --//
+//-----------------//
+
+* For the parameters City, State and Country, abbreviations are not accepted.
+* For the parameters lat and long 9 or more decimal places are accepted.
+* GET is the only accepted method so only GET related test cases are written, the assumption is that no other method is already covered as non-functioning.
+* The data errors should be caught internally so in that case the only expected answer is a 400 type response
+
+* You will appreciate going beyond the requested MVP - Eric Pereyra A.K.A. @isopropilick ;)
+* Please note that there ARE other test cases to cover such as combinations of each case but due to time constrains I can't / should analyze everything, what are you seeing here is the product of only 1 work day of work (8 to 10 hours for both step 1 and 2)
+
+
+//-------------------------//
+//-- Proposed test cases --//
+//-------------------------//
+
+Request type	|	Test Case ID| Description
+----------------------------------------------
+lat / long		|	WAPI-LL-01	| Test the API with valid latitude and longitude coordinates and verify that it returns the correct weather data. --//
+lat / long		|	WAPI-LL-02	| Test the API with an invalid latitude and longitude coordinates and verify that it returns an error. --//
+lat / long		|	WAPI-LL-03	| Test the API with missing latitude value and verify that it returns an error. --//
+lat / long		|	WAPI-LL-04	| Test the API with missing longitude value and verify that it returns an error. --//
+lat / long		|	WAPI-LL-05	| Test the API with both latitude and longitude values as zero and verify that it returns an error. --//
+lat / long		|	WAPI-LL-06	| Test the API with both latitude and longitude values containig non-numeric characters and verify that it returns an error. --//
+lat / long		|	WAPI-LL-07	| Test the API with valid but using 9 decimal places and verify that it returns the correct weather data. --//
+ZIP code		|	WAPI-ZIP-01	| Test the API with a valid US zip code and verify that it returns the correct weather data. --//
+ZIP code		|	WAPI-ZIP-02	| Test the API with an invalid US zip code and verify that it returns an error. --//
+ZIP code		|	WAPI-ZIP-03	| Test the API with a valid non-US zip code and verify that it returns an error. --//
+ZIP code		|	WAPI-ZIP-04	| Test the API with missing zip code value and verify that it returns an error. --//
+ZIP code		|	WAPI-ZIP-05	| Test the API with a zip code that includes non-numeric characters and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-01	| Test the API with a valid city name and verify that it returns the correct weather data. --//
+City/Stat/Count	|	WAPI-CIT-02	| Test the API with a valid state but without giving a city name and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-03	| Test the API with a valid state and country but without giving a city name and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-04	| Test the API with a valid country but without giving a city name and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-05	| Test the API with an invalid city name and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-06	| Test the API with a valid city name and invalid state and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-07	| Test the API with a valid city name and invalid country and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-08	| Test the API with a valid city name, an invalid state and an invalid country and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-09	| Test the API with a valid city name, an invalid state and an invalid country and verify that it returns an error. --//
+City/Stat/Count	|	WAPI-CIT-10	| Test the API with a valid city name, but outside the US and verify that it returns an error. --//
+
+//------------------------------//
+//-- Detailed testing process --//
+//------------------------------//
+
+//---------------------------------------//
+//-- Test Cases for Latitude/Longitude --//
+//---------------------------------------//
+
+	-->WAPI-LL-01<--
+	-->Test the API with valid latitude and longitude coordinates and verify that it returns the correct weather data.<--
+		* Using the following values:
+			"lat"  = "9.876"
+			"long" = "-5.678"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lat="lat"&lon="lon"
+		* Verify the Response Code of the request, should be 200(OK)
+		* Verify the JSON response has all required fields: ("cloud_pct","temp","feels_like","humidity","min_temp","max_temp","wind_speed","wind_degrees","sunrise" and "sunset")
+	-->WAPI-LL-02<--
+	-->Test the API with an invalid latitude and longitude coordinates and verify that it returns an error.<--
+		* Using the following values:
+			"lat"  = "-999"
+			"long" = "999"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lat="lat"&lon="lon"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-LL-03<--
+	-->Test the API with missing latitude value and verify that it returns an error.<--
+		* Using the following values:
+			"lon"  = "-5.678"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lon="lon"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-LL-04<--
+	-->Test the API with missing longitude value and verify that it returns an error.<--
+		* Using the following values:
+			"lat"  = "-5.678"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lon="lat"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-LL-05<--
+	-->Test the API with both latitude and longitude values as zero and verify that it returns an error.<--
+		* Using the following values:
+			"lat"  = "0"
+			"long" = "0"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lat="lat"&lon="lon"
+		* Verify the Response Code of the request, should be 404(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-LL-06<--
+	-->Test the API with both latitude and longitude values containig non-numeric characters and verify that it returns an error.<--
+		* Using the following values:
+			"lat"  = "AbC"
+			"long" = "dEf"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lat="lat"&lon="lon"
+		* Verify the Response Code of the request, should be 404(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-LL-07<--
+	-->Test the API with valid but using 9 decimal places and verify that it returns the correct weather data.<--
+		* Using the following values:
+			"lat"  = "9.876543210"
+			"long" = "-5.678901234"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?lat="lat"&lon="lon"
+		* Verify the Response Code of the request, should be 200(OK)
+		* Verify the JSON response has all required fields: ("cloud_pct","temp","feels_like","humidity","min_temp","max_temp","wind_speed","wind_degrees","sunrise" and "sunset")
+
+//-----------------------------//
+//-- Test Cases for Zip Code --//
+//-----------------------------//
+
+	-->WAPI-ZIP-01<--
+	-->Test the API with a valid US zip code and verify that it returns the correct weather data.<--
+		* Using the following value:
+			"zip"  = "90210"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?zip="zip"
+		* Verify the Response Code of the request, should be 200(OK)
+		* Verify the JSON response has all required fields: ("cloud_pct","temp","feels_like","humidity","min_temp","max_temp","wind_speed","wind_degrees","sunrise" and "sunset")
+	-->WAPI-ZIP-02<--
+	-->Test the API with an invalid US zip code and verify that it returns an error.<--
+		* Using the following value:
+			"zip"  = "99999"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?zip="zip"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->Test case WAPI-ZIP-03<--
+	-->Test the API with a valid non-US zip code and verify that it returns an error.<--
+		* Using the following value:
+			"zip"  = "110021"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?zip="zip"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-ZIP-04<--
+	-->Test the API with missing zip code value and verify that it returns an error.<--
+		* Using the following value:
+			"zip"  = ""
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?zip="zip"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->Test case WAPI-ZIP-05<--
+	-->Test the API with a zip code that includes non-numeric characters and verify that it returns an error.<--
+		* Using the following value:
+			"zip"  = "E123A123"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?zip="zip"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+
+//-------------------------//
+//-- Test Cases for City --//
+//-------------------------//
+
+	-->WAPI-CIT-01<--
+	-->Test the API with a valid city name and verify that it returns the correct weather data.<--
+		* Using the following values:
+			"city"		= "Dallas"
+			"state"		= ""
+			"country"	= ""
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 200(OK)
+		* Verify the JSON response has all required fields: ("cloud_pct","temp","feels_like","humidity","min_temp","max_temp","wind_speed","wind_degrees","sunrise" and "sunset")
+	-->WAPI-CIT-02<--
+	-->Test the API with a valid state but without giving a city name and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= ""
+			"state"		= "NewYork"
+			"country"	= ""
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-03<--
+	-->Test the API with a valid state and country but without giving a city name and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= ""
+			"state"		= "NewYork"
+			"country"	= "UnitedStates"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-04<--
+	-->Test the API with a valid country but without giving a city name and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= ""
+			"state"		= ""
+			"country"	= "UnitedStates"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-05<--
+	-->Test the API with an invalid city name and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= "NY"
+			"state"		= ""
+			"country"	= ""
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-06<--
+	-->Test the API with a valid city name and invalid state and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= "NY"
+			"state"		= "NY"
+			"country"	= ""
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-07<--
+	-->Test the API with a valid city name and invalid country and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= "NewYork"
+			"state"		= "NY"
+			"country"	= ""
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-08<--
+	-->Test the API with a valid city name, an invalid state and an invalid country and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= "NewYork"
+			"state"		= "NY"
+			"country"	= "US"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-09<--
+	-->Test the API with a valid city name, an invalid state and an invalid country and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= "NewYork"
+			"state"		= ""
+			"country"	= "US"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
+	-->WAPI-CIT-10<--
+	-->Test the API with a valid city name, but outside the US and verify that it returns an error.<--
+		* Using the following values:
+			"city"		= "MexicoCity"
+			"state"		= "MexicoCity"
+			"country"	= "Mexico"
+		* Send a GET request to the endpoint https://ninja-weather.com/v1/weather?city="city"&state="state"&country="country"
+		* Verify the Response Code of the request, should be 400(Bad request)
+		* Verify that the response has information about the error.
