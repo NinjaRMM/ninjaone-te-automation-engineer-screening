@@ -1,0 +1,81 @@
+Test 1
+
+https://ninja-weather.com/v1/weather
+400 Bad Request
+
+{
+  "error": "Missing required parameter: city"
+}
+
+Test 2
+
+https://ninja-weather.com/v1/weather?city=12345
+400 Bad Request
+
+{
+  "error": "Invalid parameter value: city"
+}
+
+Test 3
+
+https://ninja-weather.com/v1/weather?city=Dallas
+
+200 OK
+
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Test 4
+
+https://ninja-weather.com/v1/weather?city=Dallas
+
+200 OK
+
+{
+  "cloud_pct": "25",
+  "temp": 5,
+  "feels_like": -2,
+  "humidity": "81",
+  "min_temp": -8,
+  "max_temp": 10,
+  "wind_speed": "12.86",
+  "wind_degrees": "330",
+  "sunrise": "2022-12-27T12:28:32.047Z",
+  "sunset": "2022-12-27T23:27:28.021Z"
+}
+
+Test 5
+
+https://ninja-weather.com/v1/weather?zip=90210
+ 200 OK
+
+{
+  "cloud_pct": "10",
+  "temp": 23,
+  "feels_like": 20,
+  "humidity": "42",
+  "min_temp": 19,
+  "max_temp": 26,
+  "wind_speed": "6.17",
+  "wind_degrees": "250",
+  "sunrise": "2023-02-15T12:28:32.047Z",
+  "sunset": "2023-02-15T23:27:28.021Z"
+}
+
+https://ninja-weather.com/v1/weather?zip=90210
+400 Bad Request
+
+{
+  "error": "Invalid parameter value: zip"
+}
+
