@@ -1,4 +1,4 @@
-Test 1
+Test 1 : Validate that the city parameter is mandatory
 
 https://ninja-weather.com/v1/weather
 400 Bad Request
@@ -7,7 +7,8 @@ https://ninja-weather.com/v1/weather
   "error": "Missing required parameter: city"
 }
 
-Test 2
+Test 2 :Validate that an error is sent when numeric values ​​are entered in the city field
+
 
 https://ninja-weather.com/v1/weather?city=12345
 400 Bad Request
@@ -16,7 +17,9 @@ https://ninja-weather.com/v1/weather?city=12345
   "error": "Invalid parameter value: city"
 }
 
-Test 3
+
+Test 3 : Validate that status 200 is displayed when a valid city parameter is entered
+
 
 https://ninja-weather.com/v1/weather?city=Dallas
 
@@ -35,9 +38,22 @@ https://ninja-weather.com/v1/weather?city=Dallas
   "sunset": "2022-12-27T23:27:28.021Z"
 }
 
-Test 4
+Test 4 : Validate that status 404 is displayed when a city that does not exist is entered
 
-https://ninja-weather.com/v1/weather?city=Dallas
+
+https://ninja-weather.com/v1/weather?city=Dallasss
+
+404 Not Found
+
+{
+  
+}
+
+
+Test 5 : Validate that the 200 state is displayed when a correct city and country is entered
+
+
+https://ninja-weather.com/v1/weather?city="Dallas"&country="United States"
 
 200 OK
 
@@ -54,7 +70,9 @@ https://ninja-weather.com/v1/weather?city=Dallas
   "sunset": "2022-12-27T23:27:28.021Z"
 }
 
-Test 5
+
+Test 6 : Validate that the 200 status is displayed when a correct postal code is entered
+
 
 https://ninja-weather.com/v1/weather?zip=90210
  200 OK
@@ -72,10 +90,91 @@ https://ninja-weather.com/v1/weather?zip=90210
   "sunset": "2023-02-15T23:27:28.021Z"
 }
 
-https://ninja-weather.com/v1/weather?zip=90210
+Test 7 : Validate that the 400 status is displayed when a zip code of less than 5 digits is entered
+
+
+https://ninja-weather.com/v1/weather?zip=9021
 400 Bad Request
 
 {
   "error": "Invalid parameter value: zip"
 }
+
+Test 8 : Validate that the 404 status is displayed when a postal code that does not exist is entered
+
+
+https://ninja-weather.com/v1/weather?zip=00000
+404 Not Found
+
+{
+  
+}
+
+Test 9 : Validate that the 400 status is displayed when a zip code with alphanumeric data is entered
+
+
+https://ninja-weather.com/v1/weather?zip=A2AAA
+400 Bad Request
+
+{
+  "error": "Invalid parameter value: zip"
+}
+
+
+
+Test 10 : Validate that status 200 is displayed when correct latitude/longitude is entered
+
+
+https://ninja-weather.com/v1/weather?lat=1&ion=2
+200 OK
+
+{
+  "cloud_pct": "10",
+  "temp": 23,
+  "feels_like": 20,
+  "humidity": "42",
+  "min_temp": 19,
+  "max_temp": 26,
+  "wind_speed": "6.17",
+  "wind_degrees": "250",
+  "sunrise": "2023-02-15T12:28:32.047Z",
+  "sunset": "2023-02-15T23:27:28.021Z"
+}
+
+Test 11 :Validate that status 400 is displayed when "length" is entered with alphanumeric data
+
+
+https://ninja-weather.com/v1/weather?lat=1&ion=A
+400 Bad Request
+
+{
+  "error": "Invalid parameter value: lion"
+}
+
+
+Test 12: Validate that the 400 status is displayed when "latitude" is entered with alphanumeric data
+
+
+https://ninja-weather.com/v1/weather?lat=B&ion=2
+400 Bad Request
+
+{
+  "error": "Invalid parameter value: lat"
+}
+
+
+Test 13 : Validate that the 400 status is displayed when the latitude/longitude is non-existent
+
+
+https://ninja-weather.com/v1/weather?lat=30&ion=20
+404 Not Found
+
+{
+  
+}
+
+
+
+
+
 
