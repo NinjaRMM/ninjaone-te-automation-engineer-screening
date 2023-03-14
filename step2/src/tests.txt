@@ -1,0 +1,73 @@
+Weather API Testing
+-----------------------
+
+Stage = https://ninja-weather.com
+URL = Stage + /v1/weather
+Schema = {
+  "cloud_pct": {type:"string", pattern:"^.*d{2-3}"},
+  "temp": {type:"float"},
+  "feels_like": {type:"integer", pattern:"^.*d{-100,100}"},
+  "humidity": {type:"float", pattern:"^.*d{0,100}"},
+  "min_temp": {type:"float", pattern:"^.*d{-100,100}"},
+  "max_temp": {type:"float", pattern:"^.*d{-100,100}"},
+  "wind_speed": {type:"float", pattern:"^.*d{0,500}"},
+  "wind_degrees": {type:"Integer"},
+  "sunrise": {type:"dateTime" pattern:"(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z"},
+  "sunset": {type:"dateTime" pattern:"(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z"},
+}
+
+
+Test 1:  "Get weather by coordinates"
+ response = GET (URL?lat=6.2456368&lon=-75.5703282)
+ schemaValidator (response,Schema)
+ assertEquals(response.status, "200")
+
+Test 2: "Get weather by US city"
+ response = GET (URL?city="Dallas")
+ schemaValidator (response,Schema)
+ assertEquals(response.status, "200")
+
+Test 3: "Get weather by No US city"
+ response = GET (URL?city="Sao Paulo"&country="Brazil")
+ schemaValidator (response,Schema)
+ assertEquals(response.status, "200")
+
+Test 4: "Get weather by ZIP"
+ response = GET (URL?zip=94561)
+ schemaValidator (response,Schema)
+ assertEquals(response.status, "200")
+
+Test 5: "Error - Get weather without parameters"
+ response = GET (URL)
+ assertEquals(response.error, "Parameters are needed")
+ assertEquals(response.status, "401")
+
+Test 6: "Error - Get weather by coordinates without latitude"
+ response = GET (URL?lon=-75.5703282)
+ assertEquals(response.error, "Latitude and longitude are needed")
+ assertEquals(response.status, "401")
+
+Test 7: "Error - Get weather by coordinates without longitude"
+ response = GET (URL?lat=6.2456368)
+ assertEquals(response.error, "Latitude and longitude are needed")
+ assertEquals(response.status, "401")
+
+Test 8: "Error - Get weather by No US city without country"
+ response = GET (URL?city="Medellin")
+ assertEquals(response.error, "No US city require country")
+ assertEquals(response.status, "401")
+
+Test 9: "Get weather by ZIP out of range"
+ response = GET (URL?zip=050010)
+ assertEquals(response.error, "ZIP code out of range")
+ assertEquals(response.status, "401")
+
+Test 10: "Get weather by No US city with wrong country"
+ response = GET (URL?city="Sao Paulo"&country="Colombia")
+ assertEquals(response.error, "City not found in country")
+ assertEquals(response.status, "401")
+
+Test 11: "Get weather by all parameters"
+ response = GET (URL?URL?lat=6.2456368&lon=-75.5703282&city="Sao Paulo"&country="Brazil"?zip=94561)
+ assertEquals(response.error, "bad request")
+ assertEquals(response.status, "401")
